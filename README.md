@@ -85,6 +85,43 @@ Winehub starts automatically in the background when you open either app, bridgin
 
 ---
 
+## MOZA Pit House (optional)
+
+`install-pithouse.sh` installs [MOZA Pit House](https://mozaracing.com/downloads) into the same Wine environment.
+
+> **Note:** Pit House currently requires Wine `sangria-11.18-pre3` or newer, and `install.sh` will not install it automatically. Pin it before installing Pit House (see [Updating SimHub or CrewChief](#updating-simhub-or-crewchief) for how Wine pins work):
+>
+> ```bash
+> LSU_WINE_VERSION=sangria-11.18-pre3 bash install.sh
+> ```
+
+Run `install.sh` first, then run this from the same folder:
+
+```bash
+bash install-pithouse.sh
+```
+
+If you used the one-line install, the folder only has `install.sh`, so download this script into it first:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/srounce/linux-simracing-utils/master/install-pithouse.sh \
+  -o ~/linux-simracing-utils/install-pithouse.sh
+```
+
+It downloads MOZA's online installer and installs the current release without any installer windows. This takes a few minutes. Pit House then appears in your application menu, and it updates itself when it starts.
+
+Re-running the script on an existing install offers a repair. A repair removes the Pit House program folder and installs it again. Your settings and presets in Documents are not touched.
+
+To install from a MOZA channel other than `release`:
+
+```bash
+LSU_PITHOUSE_CHANNEL=1.4.1-beta bash install-pithouse.sh
+```
+
+Logs go to `log/pithouse_install.log`.
+
+---
+
 ## Updating SimHub or CrewChief
 
 Re-run the installer at any time to update to the latest versions:
@@ -113,7 +150,7 @@ The installed copy of `install.sh` keeps that branch as its default, so later ru
 To pin a specific Wine release:
 
 ```bash
-LSU_WINE_VERSION=sangria-11.17-pre1 bash install.sh
+LSU_WINE_VERSION=sangria-11.18-pre3 bash install.sh
 ```
 
 The pin is kept in the installed copy of `install.sh` the same way. `LSU_WINE_VERSION=latest` removes it and returns to the newest release.
@@ -138,6 +175,7 @@ This will also fix up the desktop launchers for SimHub and CrewChief to point to
 
 ```
 install.sh       # the installer
+install-pithouse.sh  # optional MOZA Pit House installer
 bin/             # helper scripts and tools (created by the installer)
 pfx/             # the Wine environment (created by the installer)
 log/             # install and runtime logs (created by the installer)
